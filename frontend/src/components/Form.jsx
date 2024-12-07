@@ -21,18 +21,18 @@ const Form = ({ route, method }) => {
                 navigate("/login");
             }
         }).catch((error) => {
-            console.log("response: ", error.response)
+            //console.log("response: ", error.response)
             const data = error.response.data;
             let message = '';
             if (error.response.status === 400) {
                 Object.keys(data).forEach((key) => {
-                    console.log(`${key}:  ${data[key][0]}`);
+                    //console.log(`${key}:  ${data[key][0]}`);
                     message += `${key}:  ${data[key][0]}\n`;
                 });
                 alert(message);
             } else if (error.response.status === 401) {
                 Object.keys(data).forEach((key) => {
-                    console.log(`${key}:  ${data[key]}`);
+                    //console.log(`${key}:  ${data[key]}`);
                     message += `${key}:  ${data[key]}\n`;
                 });
                 alert(message);

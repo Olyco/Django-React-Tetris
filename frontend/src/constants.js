@@ -6,7 +6,7 @@ export const COLNUM = 10;
 export const EXTRA_ROWNUM = 3;
 
 export const NORMAL_DROP = 800; // 0.8 second
-export const FAST_DROP = 17; // 0.02 second
+export const FAST_DROP = 17; // 0.017 second
 
 export const TETROMINOS = {
     0: { shape: [[0]], color: '25, 0, 51'},
@@ -33,7 +33,7 @@ export const TETROMINOS = {
             [0, 'L', 0], 
             [0, 'L', 'L']
         ],
-        color: '223, 173, 36',
+        color: '255, 176, 46',
       },
     O: {
         shape: [
@@ -64,7 +64,7 @@ export const TETROMINOS = {
             [0, 'Z', 'Z'], 
             [0, 0, 0]
         ], 
-        color: '227, 78, 78' 
+        color: '227, 78, 78'
     },
 };
 

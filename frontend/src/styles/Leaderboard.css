@@ -1,5 +1,6 @@
 .Wrapper {
-    height: 80vh;
+    height: auto;
+    max-height: 80vh;
     width: 60vw;
     margin: auto;
     overflow-y: auto;

@@ -132,7 +132,7 @@ const Tetris = () => {
     }, dropTime);
 
     return(
-        (!running) ? (setRunning(true), resetPlayer(field), getMyData(), console.log("RESETTING")) : (
+        (!running) ? (setRunning(true), resetPlayer(field), getMyData()) : (
             <div className="Tetris">
                 <input className="Controller" tabIndex="1" onKeyDown={e => keyDownProc(e)} onKeyUp={keyUpProc} autoFocus/>
                 <Field field={field} />

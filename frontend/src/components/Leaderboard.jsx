@@ -9,8 +9,10 @@ const Leaderboard = () => {
         api
             .get("api/leaderboard/")
             .then((response) => response.data)
-            .then((data) => {setRecords(data); console.log(data)})
-            .catch((error) => alert(error));
+            .then((data) => setRecords(data))
+            .catch((error) => {
+                alert(error.response.statusText);
+            })
     };
 
     useEffect(() => {
