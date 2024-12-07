@@ -1,0 +1,65 @@
+* {
+    font-size: 1.07em;
+}
+
+.Sidebar {
+    height: 100%;
+    width: auto;
+    display: grid;
+    grid-template-areas:
+        "gameOver . help"
+        "restart . help"
+        "displays . help";
+    grid-template-rows: 27% auto 60%;
+    grid-template-columns: 40% auto 37%;
+}
+
+.GameoverWrap {
+    width: 16vw;
+    grid-area: gameOver;
+}
+
+.Gameover {
+    margin: 25% 10%;
+    background-color: transparent;
+    font-size: 1.8em;
+    color: #c20020;
+
+}
+
+.RestartButton {
+    grid-area: restart;
+    margin: 0 auto 10% auto;
+    padding: 0 2%;
+    height:fit-content;
+    width: auto;
+    
+    font-size: 1.6em;
+    border: 1px solid; 
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.DisplayContainer {
+    grid-area: displays;
+    border: 1px solid;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.Help {
+    grid-area: help;
+    font-size: x-large;
+    background-color: transparent;
+}
+
+.Help ul{
+    list-style-position: inside;
+}
+
+.Help ul, li {
+    text-align: left;
+    list-style-type: circle;
+    background-color: transparent;
+}

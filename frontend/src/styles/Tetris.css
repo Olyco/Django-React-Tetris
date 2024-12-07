@@ -1,0 +1,12 @@
+.Tetris {
+    width: 100vw;
+    height: 90vh;
+    margin: 5vh auto;
+    display: flex;
+    align-items: flex-start;
+}
+
+.Controller {
+    position: absolute;
+    top: -100px;
+}

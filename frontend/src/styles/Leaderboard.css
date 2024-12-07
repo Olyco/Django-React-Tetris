@@ -1,0 +1,41 @@
+.Wrapper {
+    height: 80vh;
+    width: 60vw;
+    margin: auto;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: thin;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.Title {
+    font-size: 1.5em;
+    text-align: center;
+    margin: 20px;
+}
+
+.Table {
+    margin: auto;
+    width: 100%;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+    border-collapse: collapse;
+}
+.Table th, .Table td {
+    text-align: center;
+    padding: 1vh;
+}
+.Table th {
+    background-color: #7940ae;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+.Table tr {
+    scroll-snap-align: start;
+}
+.Table td:not(:last-child), .Table th:not(:last-child) {
+    border-right: 1px solid;
+}
+.Table tr:not(:last-child) {
+    border-bottom: 1px solid;
+}

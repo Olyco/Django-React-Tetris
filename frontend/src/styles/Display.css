@@ -1,0 +1,17 @@
+.Display {
+    width: auto;
+    margin: 3% auto 5%;
+    background-color: transparent;
+    padding: 0 2%;
+}
+
+.Name {
+    width: 12vw;
+    text-align: left;
+    background-color: transparent;
+}
+
+.Text {
+    text-align: right;
+    background-color: transparent;
+}
