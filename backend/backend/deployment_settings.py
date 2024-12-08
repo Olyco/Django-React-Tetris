@@ -21,7 +21,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
 ]
 
-CORS_ALLOWED_ORIGINS = ["https://tetris-game-n8o9.onrender.com"]
+# CORS_ALLOWED_ORIGINS = ["https://tetris-game-n8o9.onrender.com"]
 
 STORAGES = {
     "default":{
