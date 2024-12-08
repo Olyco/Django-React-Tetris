@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createField } from "./Field";
 import Field from "./Field";
 import Sidebar from "./Sidebar";
@@ -84,46 +84,8 @@ const Tetris = () => {
     const movePlayer = ( dx ) => {
         if (dropTime !== FAST_DROP) {
             if (!checkCollision(player, field, { dx: dx, dy: 0 })) {
-                updatePlayerPos({ dx: dx, dy: 0 })
+                updatePlayerPos({ dx: dx, dy: 0, landed: false})
             }
-        }
-    };
-
-    const keyUpProc = (({ keyCode }) => {
-        if (!gameOver) {
-            if (keyCode === 40) {
-                setDropTime(NORMAL_DROP);
-            }
-        }
-    });
-
-    const keyDownProc = ({ keyCode }) => {
-        if (!gameOver){
-            if (keyCode === 37) {
-                movePlayer(-1);
-            } else if (keyCode === 39) {
-                movePlayer(1);
-            } else if (keyCode === 40) {
-                dropPlayer();
-            } else if (keyCode === 38) {
-                rotatePlayer(field);
-            } else if (keyCode === 80) {
-                if (dropTime) {
-                    setDropTime(null);
-                } else {
-                    setDropTime(NORMAL_DROP);
-                }
-            } else if (keyCode === 13) {
-                handleRestart();
-            }else if (keyCode === 32) {
-                setDropTime(FAST_DROP);       
-            } else {
-                ;
-            }
-        } else if (keyCode === 13) {
-            handleRestart();
-        } else {
-            ;
         }
     };
 
@@ -131,10 +93,53 @@ const Tetris = () => {
         drop();
     }, dropTime);
 
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'Enter') {
+                handleRestart();
+            }
+
+            if (!gameOver){
+                if (event.key === 'ArrowLeft') {
+                    movePlayer(-1);
+                } else if (event.key === 'ArrowRight') {
+                    movePlayer(1);
+                } else if (event.key === 'ArrowDown') {
+                    dropPlayer();
+                } else if (event.key === 'ArrowUp') {
+                    rotatePlayer(field);
+                } else if (event.code === 'KeyP') {
+                    if (dropTime) {
+                        setDropTime(null);
+                    } else {
+                        setDropTime(NORMAL_DROP);
+                    }
+                } else if (event.key === ' ') {
+                    setDropTime(FAST_DROP);       
+                }
+            }
+        };
+
+        const handleKeyUp = (event) => {
+            if (!gameOver) {
+                if (event.key === 'ArrowDown') {
+                    setDropTime(NORMAL_DROP);
+                }
+            }
+        };
+
+    
+        document.addEventListener("keydown", handleKeyDown);
+        document.addEventListener("keyup", handleKeyUp);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keyup', handleKeyUp);
+        }
+    }, [dropPlayer, dropTime, field, gameOver, handleRestart, movePlayer, rotatePlayer])
+
     return(
         (!running) ? (setRunning(true), resetPlayer(field), getMyData()) : (
             <div className="Tetris">
-                <input className="Controller" tabIndex="1" onKeyDown={e => keyDownProc(e)} onKeyUp={keyUpProc} autoFocus/>
                 <Field field={field} />
                 <Sidebar gameOver={gameOver} handleRestart={handleRestart} username={username} rows={rows} score={score} record={record} />
             </div>

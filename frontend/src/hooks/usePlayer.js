@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react"
-import { TETROMINOS, randomTetromino, ROWNUM, COLNUM } from "../constants";
+import { TETROMINOS, randomTetromino, ROWNUM, COLNUM, EXTRA_ROWNUM } from "../constants";
 
 const rotate = (matrix, dir=1) => { //rotate clockwise
     const cols = matrix.map((_, row_n) => matrix.map(col => col[row_n]));
@@ -17,7 +17,7 @@ export const checkCollision = ( player, field, { dx, dy }) => {
             // we're in tetromino's block
             if (player.tetromino[y][x] !== 0) {
                 if (!(x + player.pos.x + dx < COLNUM && x + player.pos.x + dx >= 0) 
-                    || !(y + player.pos.y + dy < ROWNUM + 3) 
+                    || !(y + player.pos.y + dy < ROWNUM + EXTRA_ROWNUM) 
                     || field[y + player.pos.y + dy][x + player.pos.x + dx][1] !== 'clear') {
                     return true;
                 }
@@ -58,6 +58,7 @@ export const usePlayer = () => {
     const updatePlayerPos = ({ dx, dy, landed }) => {
         setPlayer(prev => ({
             ...prev,
+            //pos: { x: (prev.pos.x + dx), y: (dy !== 0 && prev.pos.y + prev.tetromino.length + dy > ROWNUM + EXTRA_ROWNUM) ? prev.pos.y : (prev.pos.y + dy) },
             pos: { x: (prev.pos.x + dx), y: (prev.pos.y + dy) },
             landed,
         }));
