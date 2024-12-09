@@ -23,6 +23,7 @@ const Sidebar = ( {gameOver, handleRestart, username, rows, score, record }) => 
                 <li>Space - instant drop</li>
                 <li>Enter - restart game</li>
                 <li>P - pause</li>
+                <li>Escape - back to menu</li>
                 <li>After clicking on restart click anywhere outside the button!</li>
             </ul>
         </div>
