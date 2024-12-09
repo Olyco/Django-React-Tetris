@@ -7,9 +7,11 @@ import "../styles/Form.css"
 const Form = ({ route, method }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
+        setLoading(true);
         e.preventDefault();
 
         api.post(route, {username, password}).then((response) => {
@@ -39,6 +41,8 @@ const Form = ({ route, method }) => {
             } else {
                 alert(error);
             }
+        }).finally(() => {
+            setLoading(false);
         })
     };
 
@@ -46,6 +50,7 @@ const Form = ({ route, method }) => {
 
     return(
         <form onSubmit={handleSubmit} className="Form">
+            {loading && <p className="Loading">loading...</p>}
             <h1>{formName}</h1>
             <input
                 className="Form-input"

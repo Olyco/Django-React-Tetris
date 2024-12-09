@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createField } from "./Field";
 import Field from "./Field";
 import Sidebar from "./Sidebar";
@@ -22,6 +23,9 @@ const Tetris = () => {
     const [username, setUsername] = useState('');
     const [record, setRecord] = useState(0);
 
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
     const handleRestart = () => {
         const emptyField = createField({rowNum: ROWNUM + EXTRA_ROWNUM, colNum: COLNUM});
         patchRecord();
@@ -40,21 +44,29 @@ const Tetris = () => {
     }
 
     const getMyData = () => {
+        setLoading(true);
         api
             .get("api/myscore/")
             .then((response) => response.data)
             .then((data) => {setRecord(data["score"]); setUsername(data["player"])})
+            .finally(() => {
+                setLoading(false);
+            })
             .catch((error) => alert(error));
     };
 
     const patchRecord = () => {
         if (score > record) {
+            setLoading(true);
             //console.log("UPDATING RECORD")
 
             api
             .patch("api/update/", {score: score})
             .then((response) => response.data)
             .then((data) => setRecord(data["score"]))
+            .finally(() => {
+                setLoading(false);
+            })
             .catch((error) => alert(error));
         }
     }
@@ -97,6 +109,10 @@ const Tetris = () => {
         const handleKeyDown = (event) => {
             if (event.key === 'Enter') {
                 handleRestart();
+            } else if (event.key === 'Escape') {
+                patchRecord();
+                setRunning(false);
+                navigate("/");
             }
 
             if (!gameOver){
@@ -135,11 +151,12 @@ const Tetris = () => {
             document.removeEventListener('keydown', handleKeyDown);
             document.removeEventListener('keyup', handleKeyUp);
         }
-    }, [dropPlayer, dropTime, field, gameOver, handleRestart, movePlayer, rotatePlayer])
+    }, [dropPlayer, dropTime, field, gameOver, handleRestart, movePlayer, navigate, patchRecord, rotatePlayer])
 
     return(
         (!running) ? (setRunning(true), resetPlayer(field), getMyData()) : (
             <div className="Tetris">
+                {loading && <p className="Loading">loading...</p>}
                 <Field field={field} />
                 <Sidebar gameOver={gameOver} handleRestart={handleRestart} username={username} rows={rows} score={score} record={record} />
             </div>

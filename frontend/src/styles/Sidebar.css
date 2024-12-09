@@ -11,7 +11,7 @@
         "restart . help"
         "displays . help";
     grid-template-rows: 27% auto 60%;
-    grid-template-columns: 40% auto 37%;
+    grid-template-columns: 40% auto 45%;
 }
 
 .GameoverWrap {
@@ -20,7 +20,7 @@
 }
 
 .Gameover {
-    margin: 25% 10%;
+    margin: 25% 15%;
     background-color: transparent;
     font-size: 1.8em;
     color: #c20020;
